@@ -39,13 +39,15 @@ temp = []
 wavelength = []
 ub = []
 img_files=[]
+data_keys = ['wavelength', 'motors', 'img', 'sample temperature', 'ub']
 for scan_no in scan_nos:
     create(header={'scan_id': scan_no})
     create(beamline_config={'scan_id': scan_no})
     create(event_descriptor={'scan_id': scan_no,
                              'descriptor_name': 'hkl_scan',
                              'event_type_id': 1,
-                             'tag': 'experimental'})
+                             'tag': 'experimental',
+                             'data_labels': data_keys})
     temp = sf[scan_no].Tsam
     motors = sf[scan_no].getSIXCAngles()
     wavelength = sf[scan_no].wavelength
