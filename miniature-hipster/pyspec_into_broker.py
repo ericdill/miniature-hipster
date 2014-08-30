@@ -1,6 +1,7 @@
 __author__ = 'edill'
 
 
+import os
 from pyspec.spec import SpecDataFile, FileProcessor
 from matplotlib import pyplot
 import numpy as np
@@ -8,11 +9,11 @@ import sys
 from metadataStore.userapi.commands import create, record
 
 spec_folder_path = "c:\\DATA\\X1A2\\X1Data\\"
-spec_folder_path = "/home/edill/X1Data/"
+# spec_folder_path = "/home/edill/X1Data/"
 spec_file_name = spec_folder_path + "LSCO_Oct13"
-ccd_path = spec_folder_path + "LSCO_Oct13_spec_img/"
-numpy_path = spec_folder_path + "LSCO_Oct13_numpy/"
-broker_path = spec_folder_path + "LSCO_Oct13_broker/"
+ccd_path = spec_folder_path + "LSCO_Oct13_spec_img" + os.sep
+numpy_path = spec_folder_path + "LSCO_Oct13_numpy" + os.sep
+broker_path = spec_folder_path + "LSCO_Oct13_broker" + os.sep
 output_images = True
 
 sf = SpecDataFile(spec_file_name, ccdpath=ccd_path)
@@ -60,7 +61,12 @@ for scan_no in scan_nos:
         for idx in range(image_stack.shape[0]):
             file = (numpy_path+"scan_"+str(scan_no)+"_img_"+str(idx))
             fnames.append(file)
-            np.save(file=file, arr=image_stack[idx])
+            try:
+                np.save(file=file, arr=image_stack[idx])
+            except IOError:
+                # thrown when file doesn't exist
+                os.mkdir(numpy_path)
+                np.save(file=file, arr=image_stack[idx])
 
             curtemp = temp[idx]
             curmotors = motors[idx].tolist()

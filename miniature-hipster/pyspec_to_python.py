@@ -8,7 +8,7 @@ import sys
 # from metadataStore.userapi.commands import create, log
 
 spec_folder_path = "c:\\DATA\\X1A2\\X1Data\\"
-spec_folder_path = "/home/edill/X1Data/"
+# spec_folder_path = "/home/edill/X1Data/"
 spec_file_name = spec_folder_path + "LSCO_Oct13"
 ccd_path = spec_folder_path + "LSCO_Oct13_spec_img/"
 numpy_path = spec_folder_path + "LSCO_Oct13_numpy/"
