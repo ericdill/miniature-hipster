@@ -43,7 +43,7 @@ images = []
 temp = []
 wavelength = []
 ub = []
-img_files=[]
+img_files = []
 data_keys = ['wavelength', 'motors', 'img', 'sample temperature', 'ub']
 # scan_nos = [388]
 for scan_no in scan_nos:
@@ -60,7 +60,8 @@ for scan_no in scan_nos:
                            'pixel_size': (pix_size, pix_size),
                            'calibrated_center': (det_size/2, det_size/2),
                            'dist_sample': 355.0,
-                           'wavelength': wavelength
+                           'wavelength': wavelength,
+                           'detector_size': (det_size, det_size),
                        }}
 
     create(header={'scan_id': scan_no})
@@ -75,6 +76,7 @@ for scan_no in scan_nos:
     fp = FileProcessor(spec=scan)
     fp.process()
     image_stack = fp.getImage()
+    image_shape = image_stack.shape
     fnames = []
 
     dt_scan_start = datetime.fromtimestamp(mktime(scan.scandate))
