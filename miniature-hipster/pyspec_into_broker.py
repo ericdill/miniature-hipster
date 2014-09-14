@@ -62,6 +62,7 @@ for scan_no in scan_nos:
                            'dist_sample': 355.0,
                            'wavelength': wavelength,
                            'detector_size': (det_size, det_size),
+                           'ub': ub,
                        }}
 
     create(header={'scan_id': scan_no})
@@ -96,7 +97,6 @@ for scan_no in scan_nos:
         curtemp = temp[idx]
         curmotors = motors[idx].tolist()
         curwavelength = wavelength
-        curub = ub
         time = frame_times[idx]
         # print("file: {0}, type: {1}".format(file, file.__class__))
         # print("sample temperature: {0}, type: {1}".format(curtemp,
@@ -109,7 +109,6 @@ for scan_no in scan_nos:
         record(scan_id=scan_no, descriptor_name='hkl_scan', seq_no=idx,
                data={'img': file,
                      'sample temperature': curtemp,
-                     'ub': curub,
                      'motors': curmotors,
                      'wavelength': curwavelength,
                      'time': time})
